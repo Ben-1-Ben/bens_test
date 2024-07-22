@@ -33,7 +33,25 @@ You can add options to executable code like this
 
 ```{r}
 #| echo: false
-2 * 2
+
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+data(mtcars)
+mtcars
+mean_displacement <- mtcars %>%
+  group_by(cyl) %>%
+  summarise(mean_disp = mean(disp, na.rm = TRUE))
+mean_displacement %>%
+  kable(col.names = c("Number of Cylinders", "Mean Displacement (cu. in.)")) %>%
+  kable_styling(full_width = FALSE, position = "center")
+ggplot(mean_displacement, aes(x = as.factor(cyl), y = mean_disp)) +
+  geom_bar(stat = "identity", fill = "black") +
+  labs(title = "Mean Engine Displacement by Number of Cylinders",
+       x = "Number of Cylinders",
+       y = "Mean Displacement (cu. in.)") +
+  theme_minimal()
 ```
 
 The `echo: false` option disables the printing of code (only output is displayed).
