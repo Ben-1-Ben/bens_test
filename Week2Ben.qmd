@@ -1,0 +1,39 @@
+---
+title: "Comparison of Cylindar Count to Engine Displacement"
+author: "Ben Huang"
+format: pdf
+editor: visual
+---
+Big Dawg has commissioned this report to investigate his claim that cars with more cylinders do not have bigger engines. To address this research question, we will analyze the `mtcars` dataset and calculate the mean engine displacement for each cylinder count. This analysis will help determine if there is a relationship between the number of cylinders and engine displacement.
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+mtcars
+mean_displacement <- mtcars %>%
+  group_by(cyl) %>%
+  summarise(mean_disp = mean(disp, na.rm = TRUE))
+mean_displacement %>%
+  kable(col.names = c("Number of Cylinders", "Mean Displacement (cu. in.)")) %>%
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
